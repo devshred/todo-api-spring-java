@@ -1,0 +1,37 @@
+### Create first todo item.
+POST http://localhost:8080/api/v1/todo
+Content-Type: application/json
+
+{
+  "text": "Do something",
+  "done": false
+}
+
+### Create second todo item.
+
+POST http://localhost:8080/api/v1/todo/
+Content-Type: application/json
+
+{
+  "text": "Do something else",
+  "done": false
+}
+
+
+### Get all items.
+GET http://localhost:8080/api/v1/todo/
+
+
+### Get an item.
+GET http://localhost:8080/api/v1/todo/ac072c52-a595-4c61-a35f-ad605f739694
+
+### Update status of an item.
+PATCH http://localhost:8080/api/v1/todo/ac072c52-a595-4c61-a35f-ad605f739694
+Content-Type: application/json
+
+{
+  "done": true
+}
+
+### Delete an item.
+DELETE http://localhost:8080/api/v1/todo/ac072c52-a595-4c61-a35f-ad605f739694
