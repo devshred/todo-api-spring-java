@@ -72,7 +72,7 @@ class TodoControllerTest {
         final CreateTodoItem newItem = new CreateTodoItem().text(TEXT);
         when(service.save(newItem)).thenReturn(new TodoItem().id(ID).text(TEXT));
 
-        mockMvc.perform(post("/api/v1/todo/") //
+        mockMvc.perform(post("/api/v1/todo") //
                 .contentType(APPLICATION_JSON) //
                 .content(objectMapper.writeValueAsString(newItem))) //
                 .andExpect(status().isCreated()) //
