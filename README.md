@@ -17,21 +17,28 @@ mvn spring-boot:run
 ## run with AOT generated code
 
 ```shell
-mvn clean package -DskipTests -Pnative
+./mvnw clean package -DskipTests -Pnative
 java -Dspring.aot.enabled=true -jar target/todo-api-spring-java-0.0.1-SNAPSHOT.jar
 ```
 
 ## build and run native app
 
 ```shell
-mvn -Pnative -DskipTests clean native:compile
+./mvnw -Pnative -DskipTests clean native:compile
 ./target/todo-api-spring-java
 ```
 
-## build docker image with native app
+## build docker image with native app (using Dockerfile)
 
 ```shell
-mvn -Pnative -DskipTests clean spring-boot:build-image
+./mvnw -Pnative -DskipTests clean native:compile
+docker build -f src/main/docker/Dockerfile.native -t todo-api-spring-java:native .
+```
+
+## build docker image with native app (using buildpacks)
+
+```shell
+./mvnw -Pnative -DskipTests clean spring-boot:build-image
 ```
 
 ## test API
