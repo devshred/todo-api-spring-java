@@ -1,4 +1,4 @@
-# Todo-API based on Spring Boot 3.0 and Java
+# native binary based on Spring Boot 3.0 and Java
 This project uses Spring Boot and Java to provide a simple todo-app API and is used for workshops.
 It implements an [OpenAPI spec](src/main/resources/todo-spec.yaml) and can be tested with a [frontend based on Vue.js](https://github.com/devshred/todo-web).
 
