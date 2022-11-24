@@ -21,7 +21,7 @@ import com.google.common.collect.ImmutableList;
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class TodoRepositoryTest {
     @Container
-    private static final PostgreSQLContainer database = new PostgreSQLContainer("postgres:13.8-alpine") //
+    private static final PostgreSQLContainer database = new PostgreSQLContainer("postgres:13.9-alpine") //
             .withDatabaseName("todo") //
             .withPassword("todo") //
             .withUsername("todo");
