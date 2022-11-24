@@ -3,7 +3,7 @@ version: '3.9'
 services:
   database:
     container_name: postgres_todo
-    image: postgres:13.8-alpine
+    image: postgres:13.9-alpine
     environment:
       POSTGRES_USER: "todo"
       POSTGRES_PASSWORD: "todo"

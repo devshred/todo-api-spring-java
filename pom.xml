@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.5</version>
+        <version>3.0.0</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>todo</groupId>
@@ -16,8 +16,7 @@
     <properties>
         <java.version>17</java.version>
         <repackage.classifier/>
-        <spring-native.version>0.12.1</spring-native.version>
-        <testcontainers.version>1.17.4</testcontainers.version>
+        <testcontainers.version>1.17.6</testcontainers.version>
     </properties>
     <dependencies>
         <dependency>
@@ -36,7 +35,7 @@
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <scope>runtime</scope>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -66,14 +65,18 @@
         </dependency>
 
         <dependency>
-            <groupId>javax.validation</groupId>
-            <artifactId>validation-api</artifactId>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
+            <version>3.0.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
         </dependency>
 
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.12.0</version>
         </dependency>
 
     </dependencies>
@@ -101,39 +104,12 @@
                             <artifactId>lombok</artifactId>
                         </exclude>
                     </excludes>
-                    <classifier>${repackage.classifier}</classifier>
-                    <image>
-                        <builder>paketobuildpacks/builder:tiny</builder>
-                        <env>
-                            <BP_NATIVE_IMAGE>true</BP_NATIVE_IMAGE>
-                        </env>
-                    </image>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.hibernate.orm.tooling</groupId>
-                <artifactId>hibernate-enhance-maven-plugin</artifactId>
-                <version>${hibernate.version}</version>
-                <executions>
-                    <execution>
-                        <id>enhance</id>
-                        <goals>
-                            <goal>enhance</goal>
-                        </goals>
-                        <configuration>
-                            <failOnError>true</failOnError>
-                            <enableLazyInitialization>true</enableLazyInitialization>
-                            <enableDirtyTracking>true</enableDirtyTracking>
-                            <enableAssociationManagement>true</enableAssociationManagement>
-                            <enableExtendedEnhancement>false</enableExtendedEnhancement>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
             <plugin>
                 <groupId>org.openapitools</groupId>
                 <artifactId>openapi-generator-maven-plugin</artifactId>
-                <version>6.2.0</version>
+                <version>6.2.1</version>
                 <executions>
                     <execution>
                         <goals>
@@ -154,6 +130,7 @@
                                 <dateLibrary>java8</dateLibrary>
                                 <useTags>true</useTags>
                                 <interfaceOnly>true</interfaceOnly>
+                                <useSpringBoot3>true</useSpringBoot3>
                             </configOptions>
                         </configuration>
                     </execution>
@@ -161,25 +138,4 @@
             </plugin>
         </plugins>
     </build>
-    <repositories>
-        <repository>
-            <id>spring-releases</id>
-            <name>Spring Releases</name>
-            <url>https://repo.spring.io/release</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-    <pluginRepositories>
-        <pluginRepository>
-            <id>spring-releases</id>
-            <name>Spring Releases</name>
-            <url>https://repo.spring.io/release</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </pluginRepository>
-    </pluginRepositories>
-
 </project>

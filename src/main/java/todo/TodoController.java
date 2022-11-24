@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.AllArgsConstructor;
@@ -17,6 +18,7 @@ import todo.model.TodoStatus;
 @RestController
 @AllArgsConstructor
 @Slf4j
+@RequestMapping("/api/v1")
 public class TodoController implements TodoApi {
 
     private final TodoService service;

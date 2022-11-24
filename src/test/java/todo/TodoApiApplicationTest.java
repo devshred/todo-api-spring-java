@@ -14,7 +14,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class TodoApiApplicationTest {
     @Container
-    private static final PostgreSQLContainer database = new PostgreSQLContainer("postgres:13.8-alpine") //
+    private static final PostgreSQLContainer database = new PostgreSQLContainer("postgres:13.9-alpine") //
             .withDatabaseName("todo") //
             .withPassword("todo") //
             .withUsername("todo");
