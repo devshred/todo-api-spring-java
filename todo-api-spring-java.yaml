@@ -1,0 +1,96 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: view-secrets-and-config-maps
+rules:
+  - apiGroups: [""] # "" indicates the core API group
+    resources: ["secrets", "configmaps"]
+    verbs: ["get"]
+---
+kind: ServiceAccount
+apiVersion: v1
+metadata:
+  name: todo-api-spring-java
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: todo-api-spring-java-view-secrets-and-config-maps
+subjects:
+  - kind: ServiceAccount
+    name: todo-api-spring-java
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: view-secrets-and-config-maps
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-api-spring-java
+  labels:
+    app: todo-api-spring-java
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todo-api-spring-java
+  template:
+    metadata:
+      labels:
+        app: todo-api-spring-java
+    spec:
+      containers:
+      - name: todo-api-spring-java
+        image: registry.local:5000/todo-api-spring-java:jit
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+        env:
+        - name: DB_HOST
+          value: todo-db-postgresql.todo-app.svc.cluster.local
+        - name: DB_PORT
+          value: "5432"
+        - name: DB_USER
+          value: todo
+        - name: DB_NAME
+          value: todo
+        - name: DB_PASS
+          valueFrom:
+            secretKeyRef:
+              name: todo-db-postgresql
+              key: password
+      serviceAccountName: todo-api-spring-java
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: todo-api-spring-java
+spec:
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: http
+      name: http
+  type: ClusterIP
+  selector:
+    app: todo-api-spring-java
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: todo-api-spring-java-ingress
+spec:
+  rules:
+    - host: todo-api-spring-java.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: todo-api-spring-java
+                port:
+                  number: 80
