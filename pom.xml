@@ -126,6 +126,16 @@
                             <artifactId>lombok</artifactId>
                         </exclude>
                     </excludes>
+                    <image>
+                        <builder>paketobuildpacks/builder:tiny</builder>
+                        <runImage>paketobuildpacks/run:latest</runImage>
+                        <env>
+                            <BP_NATIVE_IMAGE>true</BP_NATIVE_IMAGE>
+                        </env>
+                        <buildpacks>
+                            <buildpack>gcr.io/paketo-buildpacks/java-native-image:7</buildpack>
+                        </buildpacks>
+                    </image>
                 </configuration>
             </plugin>
             <plugin>
