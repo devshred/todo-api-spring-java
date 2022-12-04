@@ -1,5 +1,9 @@
 version: '3.9'
 
+networks:
+  todo:
+    name: todo
+
 services:
   database:
     container_name: postgres_todo
@@ -9,3 +13,5 @@ services:
       POSTGRES_PASSWORD: "todo"
     ports:
       - "5432:5432"
+    networks:
+      - todo
