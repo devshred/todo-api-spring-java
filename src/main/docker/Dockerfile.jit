@@ -3,7 +3,7 @@ EXPOSE 8080
 
 COPY ./target/todo-api-spring-java-*.jar /app/app.jar
 
-USER nonroot
+USER nonroot:nonroot
 ENV JAVA_TOOL_OPTIONS=""
 WORKDIR /app
 CMD ["app.jar"]
