@@ -11,6 +11,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledInNativeImage;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
@@ -21,6 +22,7 @@ import todo.model.CreateTodoItem;
 import todo.model.TodoItem;
 import todo.model.TodoStatus;
 
+@DisabledInNativeImage
 @ExtendWith(MockitoExtension.class)
 class TodoServiceTest {
     private static final String TODO_TEXT = "some todo";
