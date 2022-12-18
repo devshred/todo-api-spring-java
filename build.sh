@@ -3,7 +3,7 @@
 mode=$1
 
 help() {
-  echo "available modes: native, jit"
+  echo "available modes: native, jvm"
 }
 
 if [ "$mode" == "native" ]; then
@@ -11,11 +11,11 @@ if [ "$mode" == "native" ]; then
   docker build -f src/main/docker/Dockerfile.native -t todo-api-spring-java:native .
   docker tag todo-api-spring-java:native registry.local:5000/todo-api-spring-java:native
   docker push registry.local:5000/todo-api-spring-java:native
-elif [ "$mode" == "jit" ]; then
+elif [ "$mode" == "jvm" ]; then
   ./mvnw clean package -DskipTests
-  docker build -f src/main/docker/Dockerfile.jit -t todo-api-spring-java:jit .
-  docker tag todo-api-spring-java:jit registry.local:5000/todo-api-spring-java:jit
-  docker push registry.local:5000/todo-api-spring-java:jit
+  docker build -f src/main/docker/Dockerfile.jvm -t todo-api-spring-java:jvm .
+  docker tag todo-api-spring-java:jvm registry.local:5000/todo-api-spring-java:jvm
+  docker push registry.local:5000/todo-api-spring-java:jvm
 elif [ -z "$mode" ]; then
   echo "mode not set"
   help
