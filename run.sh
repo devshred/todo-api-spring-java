@@ -52,6 +52,7 @@ docker run --rm -d \
     -p "8080:8080" \
     --name ${CONTAINER_NAME}-${mode} \
     -m 512M \
+    --cpus=2.0 \
     todo-api-spring-java:${mode}
 
 wait_for_log ${CONTAINER_NAME}-${mode} "Started TodoApiApplication in"

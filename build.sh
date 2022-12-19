@@ -7,8 +7,7 @@ help() {
 }
 
 if [ "$mode" == "native" ]; then
-   ./mvnw -Pnative -DskipTests clean native:compile
-  docker build -f src/main/docker/Dockerfile.native -t todo-api-spring-java:native .
+  ./mvnw -Pnative -DskipTests clean spring-boot:build-image
 elif [ "$mode" == "jvm" ]; then
   ./mvnw clean package -DskipTests
   docker build -f src/main/docker/Dockerfile.jvm -t todo-api-spring-java:jvm .
